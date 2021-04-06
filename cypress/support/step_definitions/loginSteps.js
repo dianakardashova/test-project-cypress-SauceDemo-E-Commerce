@@ -1,3 +1,5 @@
+import {enterValidCredentials} from "../actions/loginActions"
+
 const {Given, When, Then, And} = require('cypress-cucumber-preprocessor/steps');
 
 Given(/^user on the login page$/, () => {
@@ -5,8 +7,7 @@ Given(/^user on the login page$/, () => {
 });
 
 And(/^user enters correct username & password on the corresponding fields$/, () => {
-    cy.get('input[placeholder="Username"]').type('standard_user')
-    cy.get('input[placeholder="Password"]').type('secret_sauce')
+    enterValidCredentials();
 });
 
 When(/^user clicks on login button$/, () => {
