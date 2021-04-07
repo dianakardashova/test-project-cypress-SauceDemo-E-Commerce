@@ -1,4 +1,7 @@
 import {enterValidCredentials} from "../actions/loginActions"
+import {clickElement} from "../actions/globalActions"
+
+import {loginForm} from "../pageObjects/pageObjects"
 
 const {Given, When, Then, And} = require('cypress-cucumber-preprocessor/steps');
 
@@ -11,7 +14,7 @@ And(/^user enters correct username & password on the corresponding fields$/, () 
 });
 
 When(/^user clicks on login button$/, () => {
-    cy.get('input[id=login-button]').click()
+    clickElement(loginForm.loginButton);
 });
 
 Then(/^user will be logged in system$/, () => {
