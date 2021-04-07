@@ -3,7 +3,7 @@ import {enterValidCredentials} from "../actions/loginActions"
 const {Given, When, Then, And} = require('cypress-cucumber-preprocessor/steps');
 
 Given(/^user on the login page$/, () => {
-    cy.visit('https://www.saucedemo.com');
+    cy.visit('/');
 });
 
 And(/^user enters correct username & password on the corresponding fields$/, () => {
