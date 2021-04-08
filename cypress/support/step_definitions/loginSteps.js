@@ -16,10 +16,3 @@ And(/^user enters correct username & password on the corresponding fields$/, () 
 When(/^user clicks on login button$/, () => {
     clickElement(loginForm.loginButton);
 });
-
-Then(/^user will be logged in system$/, () => {
-    cy.get('.title').then(($elem_title) => {
-        const title_text = $elem_title.text()
-        expect(title_text).to.eq('Products')
-    })
-});
