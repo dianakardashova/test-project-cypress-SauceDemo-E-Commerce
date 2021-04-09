@@ -6,7 +6,7 @@ module.exports = {
         },
         secondary: {
             mainPageTitle: ".title",
-            productsFilter: ".product_sort_container"
+            productsFilterActiveOption: ".active_option"
         }
     }
 }

@@ -2,6 +2,7 @@
   "baseUrl": "https://www.saucedemo.com",
   "integrationFolder": "cypress/features",
   "testFiles": "**/*.feature",
+  "chromeWebSecurity": false,
   "env": {
     "environment": "standard",
     "standard":{
