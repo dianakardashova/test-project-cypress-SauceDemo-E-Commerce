@@ -22,7 +22,48 @@ export const chooseProductsFilterValue = (desiredValue) => {
     cy.get('[data-test=product_sort_container]').select(desiredValue);
 }
 
-export const verifyProductsFilterActiveOption = () => {
+export const getProductsFilterActiveOption = () => {
     let textActiveOption = Cypress.$(main.header.secondary.productsFilterActiveOption).text()
     return textActiveOption;
 }
+
+//get inventory items names or prices, using selector
+const getInventoryItems = (selector) => {
+    let inventoryItems = [];
+    let tmp;
+    let inventoryItemsLength = Cypress.$(selector).length;
+
+    for(let i = 0; i < inventoryItemsLength; i++){
+        tmp = Cypress.$(selector).eq(i).text()
+
+        if (tmp.includes('$')) {
+            tmp = parseFloat(tmp.replace('$', ''));
+        }
+        inventoryItems.push(tmp)
+    }
+    return inventoryItems
+}
+
+export const verifySorting = (sortingType, isNumber=true) => {
+    let sortingOption
+    let inventoryItems
+
+    if (isNumber) {
+        inventoryItems = getInventoryItems(main.body.inventoryItemPrice);
+        sortingOption = (a, b) => a - b
+    }
+    else {
+        inventoryItems = getInventoryItems(main.body.inventoryItemName);
+        sortingOption = undefined
+    }
+    let inventoryItemsToCompare = Object.assign([], inventoryItems);
+
+    if (sortingType === "Name (A to Z)" || sortingType === "Price (low to high)") {
+        inventoryItems.sort(sortingOption)
+    } else if (sortingType === "Name (Z to A)" || sortingType === "Price (high to low)") {
+        console.log(sortingType)
+        inventoryItems.sort(sortingOption).reverse()
+    }
+
+    expect(inventoryItemsToCompare).to.deep.eq(inventoryItems)
+};

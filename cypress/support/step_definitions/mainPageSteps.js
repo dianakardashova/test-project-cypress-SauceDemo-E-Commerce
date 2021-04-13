@@ -2,7 +2,8 @@ import {
     chooseProductsFilterValue,
     verifyIsLoggedIn,
     verifyIsOnMainPage,
-    verifyProductsAreVisible, verifyProductsFilterActiveOption
+    verifyProductsAreVisible,
+    verifySorting
 } from "../actions/mainPageActions"
 import {enterValidCredentials} from "../actions/loginActions";
 
@@ -35,13 +36,10 @@ And(/^user can choose one products filter (.*)$/, (dataTable) => {
     chooseProductsFilterValue(dataTable);
 });
 
-Then(/^user should have correct information$/, () => {
-    let activeOption = verifyProductsFilterActiveOption();
-    for(let key in mainPageProductsAllNames){
-        if(key === activeOption){
-            for(let i = 0; i < mainPageProductsAllNames[key].length; i++){
-                cy.get('.inventory_item_name').eq(i).should('be.visible').should('have.text', mainPageProductsAllNames[key][i])
-            }
-        }
-    }
+Then(/^user should have correct names information for chosen (.*)$/, (dataTable) => {
+    verifySorting(dataTable, false);
+});
+
+Then(/^user should have correct prices information for chosen (.*)$/, (dataTable) => {
+    verifySorting(dataTable);
 });

@@ -8,5 +8,9 @@ module.exports = {
             mainPageTitle: ".title",
             productsFilterActiveOption: ".active_option"
         }
+    },
+    body: {
+        inventoryItemName: ".inventory_item_name",
+        inventoryItemPrice: ".inventory_item_price"
     }
 }
