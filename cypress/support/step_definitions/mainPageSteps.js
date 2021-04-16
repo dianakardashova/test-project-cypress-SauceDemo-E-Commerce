@@ -1,9 +1,12 @@
 import {
+    addInventoryItemToCartByName,
     chooseProductsFilterValue,
     verifyIsLoggedIn,
     verifyIsOnMainPage,
+    verifyNumberOfProductInCart,
     verifyProductsAreVisible,
-    verifySorting
+    verifySorting, verifyTextOfButtonForProduct,
+    verifyTextOfButtonsForProducts
 } from "../actions/mainPageActions"
 import {enterValidCredentials} from "../actions/loginActions";
 
@@ -12,6 +15,8 @@ import {clickElement} from "../actions/globalActions";
 import {loginForm} from "../pageObjects/pageObjects";
 
 const {Given, When, Then, And} = require('cypress-cucumber-preprocessor/steps');
+
+const mainPageData = require('../../fixtures/mainPage.json')
 
 Then(/^user will be logged in system$/, () => {
     verifyIsLoggedIn();
@@ -42,4 +47,20 @@ Then(/^user should have correct names information for chosen (.*)$/, (dataTable)
 
 Then(/^user should have correct prices information for chosen (.*)$/, (dataTable) => {
     verifySorting(dataTable);
+});
+
+When(/^user can add one product to cart$/, () => {
+    addInventoryItemToCartByName(mainPageData.defaultProduct);
+});
+
+Then(/^user should see number (\d+) next to the shopping cart badge$/, (numberOfProducts) => {
+    verifyNumberOfProductInCart(numberOfProducts);
+});
+
+Then(/^text of the button should have changed to "([^"]*)" for product$/, (textOfButton) => {
+    verifyTextOfButtonForProduct(textOfButton, mainPageData.defaultProduct);
+});
+
+When(/^user can see text of the buttons "([^"]*)" for all products$/, (textOfButton) => {
+    verifyTextOfButtonsForProducts(textOfButton, mainPageData.numberOfProductsOnMainPage);
 });

@@ -21,3 +21,11 @@ Examples:
   |        value      |
   |Price (low to high)|
   |Price (high to low)|
+
+Scenario: Verify adding one product to cart.
+Given user is logged in successfully
+When user is on main page
+And user can see text of the buttons "Add to cart" for all products
+And user can add one product to cart
+Then user should see number 1 next to the shopping cart badge
+And text of the button should have changed to "Remove" for product

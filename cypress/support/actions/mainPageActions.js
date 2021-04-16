@@ -67,3 +67,34 @@ export const verifySorting = (sortingType, isNumber=true) => {
 
     expect(inventoryItemsToCompare).to.deep.eq(inventoryItems)
 };
+
+export const indexOfDesiredInventoryItem = (inventoryItemName) => {
+    let inventoryItems = getInventoryItems(main.body.inventoryItemName);
+
+    for(let i = 0; i < inventoryItems.length; i++){
+        if (inventoryItems[i] === inventoryItemName){
+            return i;
+        }
+    }
+}
+
+export const addInventoryItemToCartByName = (inventoryItemName) => {
+    cy.get(main.body.inventoryItemButton).eq(indexOfDesiredInventoryItem(inventoryItemName)).click();
+}
+
+export const verifyNumberOfProductInCart = (numberOfProducts) => {
+    cy.get(main.header.primary.shoppingCartBadge).should('be.visible').should('have.text', numberOfProducts);
+}
+
+export const verifyTextOfButtonForProduct = (textOfButton, inventoryItemName) => {
+    cy.get(main.body.inventoryItemButton).eq(indexOfDesiredInventoryItem(inventoryItemName)).should('have.text', textOfButton);
+}
+
+export const verifyTextOfButtonsForProducts = (textOfButton, numberOfProducts) => {
+    cy.get(main.body.inventoryItemButton).should(($buttons) => {
+        expect($buttons).to.have.length(numberOfProducts);
+        for (let i = 0; i < numberOfProducts; i++){
+            expect($buttons.eq(i)).to.contain(textOfButton);
+        }
+    });
+}
