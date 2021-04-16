@@ -82,6 +82,14 @@ export const addInventoryItemToCartByName = (inventoryItemName) => {
     cy.get(main.body.inventoryItemButton).eq(indexOfDesiredInventoryItem(inventoryItemName)).click();
 }
 
+export const addInventoryItemsToCart = (numberOfProducts) => {
+    cy.get(main.body.inventoryItemButton).then(($buttons) => {
+        for (let i = 0; i < numberOfProducts; i++){
+           $buttons[i].click();
+        }
+    });
+}
+
 export const verifyNumberOfProductInCart = (numberOfProducts) => {
     cy.get(main.header.primary.shoppingCartBadge).should('be.visible').should('have.text', numberOfProducts);
 }

@@ -22,10 +22,18 @@ Examples:
   |Price (low to high)|
   |Price (high to low)|
 
-Scenario: Verify adding one product to cart.
+Scenario: Verify adding one product to cart
 Given user is logged in successfully
 When user is on main page
 And user can see text of the buttons "Add to cart" for all products
 And user can add one product to cart
 Then user should see number 1 next to the shopping cart badge
 And text of the button should have changed to "Remove" for product
+
+Scenario: Verify adding all products to cart
+Given user is logged in successfully
+When user is on main page
+And user can see text of the buttons "Add to cart" for all products
+And user can add all products to cart
+Then user should see number of all products next to the shopping cart badge
+And text of the buttons should have changed to "Remove" for all products

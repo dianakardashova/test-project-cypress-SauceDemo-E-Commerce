@@ -1,4 +1,5 @@
 import {
+    addInventoryItemsToCart,
     addInventoryItemToCartByName,
     chooseProductsFilterValue,
     verifyIsLoggedIn,
@@ -62,5 +63,17 @@ Then(/^text of the button should have changed to "([^"]*)" for product$/, (textO
 });
 
 When(/^user can see text of the buttons "([^"]*)" for all products$/, (textOfButton) => {
+    verifyTextOfButtonsForProducts(textOfButton, mainPageData.numberOfProductsOnMainPage);
+});
+
+When(/^user can add all products to cart$/, () => {
+    addInventoryItemsToCart(mainPageData.numberOfProductsOnMainPage);
+});
+
+Then(/^user should see number of all products next to the shopping cart badge$/, () => {
+    verifyNumberOfProductInCart(mainPageData.numberOfProductsOnMainPage);
+});
+
+Then(/^text of the buttons should have changed to "([^"]*)" for all products$/, (textOfButton) => {
     verifyTextOfButtonsForProducts(textOfButton, mainPageData.numberOfProductsOnMainPage);
 });
